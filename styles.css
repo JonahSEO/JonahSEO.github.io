@@ -1,0 +1,43 @@
+/* Center everything */
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Fix width for text boxes */
+.container {
+    width: 90%; /* Adjust width for mobile */
+    max-width: 800px; /* Limit max width */
+    margin: auto; /* Center it */
+    padding: 20px;
+}
+
+/* Ensure text is aligned properly */
+h1, h2, p {
+    text-align: center;
+}
+
+/* Ensure buttons are centered */
+.cta-button {
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    padding: 10px 20px;
+    background-color: #ff6600; /* Button color */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+/* Make the site responsive */
+@media (max-width: 768px) {
+    .container {
+        width: 95%; /* More flexible on mobile */
+    }
+}
