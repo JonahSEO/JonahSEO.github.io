@@ -217,35 +217,64 @@
            <p><strong></strong><br>
            </p>
                   </div>
-       <div style="position: fixed; bottom: 0; left: 0; right: 0; background: #1D9258; color: white; padding: 15px; text-align: center; z-index: 1000;">
-  🚀 <strong>Limited spots left!</strong> Get your free audit before
- 
-  → <a href="mailto:boostgmb.rankings@gmail.com" style="color: white; text-decoration: underline; font-weight: bold;">Click Here</a>
+       <div style="position: fixed; bottom: 0; left: 0; right: 0; background: #1D9258; color: white; padding: 12px; text-align: center; z-index: 9999; font-family: Arial, sans-serif; box-shadow: 0 -2px 10px rgba(0,0,0,0.2);">
+  <div style="max-width: 800px; margin: 0 auto; display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap;">
+    <span style="font-weight: bold;">🚀 LIMITED SPOTS LEFT!</span>
+    <span>Get your <strong>FREE</strong> audit before:</span>
+    <span id="offer-timer" style="background: #FBBC05; color: #202124; padding: 2px 8px; border-radius: 4px; font-weight: bold; white-space: nowrap;"></span>
+    <a href="mailto:boostgmb.rankings@gmail.com" style="color: white; text-decoration: none; font-weight: bold; background: #EA4335; padding: 4px 12px; border-radius: 4px; margin-left: 5px;">CLAIM NOW →</a>
+  </div>
 </div>
-       <script>
-  // Calculate days remaining (3-day offer)
-  const today = new Date();
-  const expiryDate = new Date(today);
-  expiryDate.setDate(today.getDate() + 3);
+
+<script>
+  // Set offer duration (3 days)
+  const offerDays = 3;
   
-  const daysLeft = Math.ceil((expiryDate - today) / (86400000));
-  const dateText = expiryDate.toLocaleDateString('en-US', { 
-    month: 'short', 
-    day: 'numeric' 
-  });
-  
-  // Update display
-  const expiryElement = document.getElementById('expiry-date');
-  expiryElement.innerHTML = `
-    <span style="background: #FBBC05; color: #202124; padding: 2px 6px; border-radius: 4px;">
-      ${daysLeft} day${daysLeft !== 1 ? 's' : ''} left
-    </span> - ${dateText}
-  `;
-  
-  // Hide banner when expired
-  if (daysLeft <= 0) {
-    document.querySelector('[style*="position: fixed; bottom: 0"]').style.display = 'none';
+  // Check localStorage for first visit
+  if (!localStorage.getItem('offerFirstSeen')) {
+    localStorage.setItem('offerFirstSeen', new Date().toISOString());
   }
+  
+  // Calculate remaining time
+  const firstSeen = new Date(localStorage.getItem('offerFirstSeen'));
+  const deadline = new Date(firstSeen);
+  deadline.setDate(deadline.getDate() + offerDays);
+  
+  function updateCounter() {
+    const now = new Date();
+    const timeLeft = deadline - now;
+    
+    // If offer expired
+    if (timeLeft <= 0) {
+      document.getElementById('offer-timer').textContent = "OFFER ENDED!";
+      document.querySelector('[style*="position: fixed; bottom: 0"]').style.background = "#EA4335";
+      return;
+    }
+    
+    // Calculate days/hours
+    const daysLeft = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+    const hoursLeft = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    
+    // Display format
+    let timerText;
+    if (daysLeft > 0) {
+      timerText = `${daysLeft} DAY${daysLeft !== 1 ? 'S' : ''} LEFT`;
+    } else {
+      timerText = `${hoursLeft} HOUR${hoursLeft !== 1 ? 'S' : ''} LEFT`;
+    }
+    
+    document.getElementById('offer-timer').textContent = timerText;
+    
+    // Color change when <24h
+    if (daysLeft === 0) {
+      document.getElementById('offer-timer').style.background = "#EA4335";
+      document.getElementById('offer-timer').style.color = "white";
+    }
+  }
+  
+  // Update immediately and every hour
+  updateCounter();
+  setInterval(updateCounter, 3600000); // 1 hour refresh
 </script>
        <p><strong>copyright-2025 All Rights Reserved</strong></p>
 
