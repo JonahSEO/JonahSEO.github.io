@@ -68,7 +68,7 @@ body {
     padding: 12px;
   }
 }
-.faq-item {
+.faq {
   min-height: 120px; /* Uniform height */
   display: flex;
   flex-direction: column;
