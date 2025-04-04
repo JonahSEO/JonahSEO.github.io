@@ -76,6 +76,26 @@
        transform: scale(1.05);
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
+           <style>
+#scrollBtn {
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  display: none;
+  font-size: 18px;
+  padding: 10px 15px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 99;
+}
+#scrollBtn:hover {
+  background-color: #555;
+}
+</style>
+
     </style>
 </head>
 <body>
@@ -276,6 +296,23 @@
   updateCounter();
   setInterval(updateCounter, 3600000); // 1 hour refresh
 </script>
+       <button onclick="topFunction()" id="scrollBtn" title="Go to top">↑</button>
+<script>
+let scrollBtn = document.getElementById("scrollBtn");
+
+window.onscroll = function() {
+  if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+    scrollBtn.style.display = "block";
+  } else {
+    scrollBtn.style.display = "none";
+  }
+};
+
+function topFunction() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
        <p><strong>copyright-2025 All Rights Reserved</strong></p>
 
            </style>
